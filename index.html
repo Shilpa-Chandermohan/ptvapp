@@ -1,0 +1,79 @@
+<!-- Copyright (C) 2014 Open Rice & Panasonic Corporation. All Rights Reserved. -->
+<!-- // File Name: index.html -->
+<!-- // File Created Date: 17-Oct-2013 -->
+<!-- // Release Date: 02-Jan-2014  -->
+<!-- // Release Version: 1.4 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OpenRice</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.3.custom.css"/>
+<script>
+totalLoadedImg=0;
+function loadImage(){
+try{
+splashOn = true;
+totalLoadedImg++;
+if(totalLoadedImg===3){
+var splashLoading = document.getElementById("splashLoading");
+splashLoading.className = "splashLoading loadingOn";
+var afterTwoMins = function() {
+	if(splashOn){
+		$("#splashLoading").remove();
+		$("#wait").remove();
+		$("#splashError").css("display", "block");
+	}
+}
+window.setTimeout(afterTwoMins, (30000 * 4));
+}
+} catch (e) {}
+}
+</script>
+</head>
+<body>
+	<div id="buffer"></div><!-- For image buffering -->
+	<div id="splash"> <!-- For splash screen -->
+		<img id="splash_img" class="splash_img" src="images/logo.png" onload="loadImage()"> 
+		<img src="images/loading_icon.png" style="display:none;" onload="loadImage()" ></img>
+		<div id="splashLoading"></div><!-- For splash screen loading -->
+		<div id="wait" >Please Wait...</div>
+		<img class="lowerBanner" src="images/lower.jpg" onload="loadImage()"><!-- For splash screen lower banner -->
+		<div id="splashError" style="display:none;">Unable to connect to the network. Please try again later. </br> Press return key to go to home screen.</div>
+	</div>
+	<div id="wrapper"><!-- parent div -->
+		<section id="leftSection"><!-- Main-Menu Section -->
+			<div id="currentLocation">
+				<span id="currentLocationTxt"></span>
+			</div>
+			<div id="menu">	</div>
+		</section>
+		<section id="innerSection"><!-- Content Section -->
+		</section>
+		<section id="bottomSection"><!-- Bottom Section -->
+			<div id="arrows">
+				<div id="downArrow"></div>
+				<div id="upArrow"></div>
+			</div>
+		</section>
+		<div id="loading" class="loading loadingOff"></div><!-- loading image -->
+	</div>
+</body>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="js/global.js"></script>
+<script src="js/region.js"></script>
+<script src="js/search.js"></script>
+<script src="js/resturant_listing.js"></script>
+<script src="js/resturant_detail.js"></script>
+<script type="text/javascript">
+// Entry Point of the HTML5 application
+window.onload = function() {
+try{
+var g = window.global;
+g.createHtml();
+}catch(e){}
+};
+</script>
+</html>
